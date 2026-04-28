@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mt-10">
+    <div class="md:flex">
+        <div class="p-10 w-full">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-xs font-bold text-indigo-500 uppercase tracking-widest">{{ item.get_category_display }}</span>
+                    <h1 class="text-4xl font-black text-gray-900 mt-1">{{ item.title }}</h1>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl font-black text-green-600">
+                        {% if item.price == 0 %}Бесплатно{% else %}{{ item.price }} ₽{% endif %}
+                    </div>
+                    <div class="text-gray-400 text-sm mt-1">Просмотров: {{ item.views_count }}</div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-gray-600 leading-relaxed text-lg">
+                {{ item.description|linebreaks }}
+            </div>
+
+            <div class="mt-8 p-6 bg-gray-50 rounded-2xl flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                        {{ item.author.username|first|upper }}
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-500">Автор объявления</div>
+                        <div class="font-bold text-gray-900">@{{ item.author.username }}</div>
+                    </div>
+                </div>
+                <div class="text-gray-400 text-sm">Опубликовано: {{ item.pub_date|date:"d.m.Y" }}</div>
+            </div>
+
+            <div class="mt-10 flex space-x-4">
+                <a href="{% url 'item_list' %}" class="text-gray-500 font-bold hover:text-indigo-600">← Назад</a>
+                {% if user == item.author %}
+                    <span class="text-xs bg-gray-200 text-gray-600 px-3 py-2 rounded-lg">Вы автор этого объявления</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

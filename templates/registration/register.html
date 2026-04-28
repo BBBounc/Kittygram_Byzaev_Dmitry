@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl border mt-10">
+    <h2 class="text-2xl font-black mb-6 text-center text-gray-800 uppercase tracking-tight">Регистрация</h2>
+    
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+            <div class="bg-red-50 text-red-500 p-4 rounded-xl text-sm">
+                Пожалуйста, исправьте ошибки ниже.
+            </div>
+        {% endif %}
+
+        <div class="space-y-2 flex flex-col">
+            {% for field in form %}
+                <label class="text-sm font-bold text-gray-700 ml-1">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <p class="text-[10px] text-gray-400 ml-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p class="text-red-500 text-xs ml-1">{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-2xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition mt-4">
+            Создать аккаунт
+        </button>
+    </form>
+    
+    <p class="text-center mt-6 text-sm text-gray-500">
+        Уже есть аккаунт? <a href="{% url 'login' %}" class="text-indigo-600 font-bold">Войти</a>
+    </p>
+</div>
+
+<style>
+    /* Стилизация стандартных полей Django-формы */
+    input {
+        border: 2px solid #f3f4f6;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    input:focus {
+        border-color: #4f46e5;
+    }
+</style>
+{% endblock %}

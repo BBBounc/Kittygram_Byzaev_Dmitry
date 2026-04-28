@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="space-y-10">
+    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+        <h1 class="text-3xl font-black text-gray-900">Профиль @{{ user.username }}</h1>
+        <p class="text-gray-500">Управление вашими данными в Kittygram</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border">
+            <h2 class="text-xl font-bold mb-4">Мои коты ({{ my_cats.count }})</h2>
+            <div class="space-y-2">
+                {% for cat in my_cats %}
+                    <div class="p-3 bg-gray-50 rounded-xl flex justify-between">
+                        <span class="font-bold">{{ cat.name }}</span>
+                        <span class="text-gray-400 text-sm">{{ cat.color }}</span>
+                    </div>
+                {% empty %}
+                    <p class="text-gray-400 italic">Вы еще не добавили котов через API</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl shadow-sm border">
+            <h2 class="text-xl font-bold mb-4">Мои объявления ({{ my_items.count }})</h2>
+            <div class="space-y-2">
+                {% for item in my_items %}
+                    <div class="p-3 bg-gray-50 rounded-xl flex justify-between">
+                        <span class="font-bold">{{ item.title }}</span>
+                        <span class="text-green-600 font-bold">{{ item.price }} ₽</span>
+                    </div>
+                {% empty %}
+                    <p class="text-gray-400 italic">У вас нет активных объявлений</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

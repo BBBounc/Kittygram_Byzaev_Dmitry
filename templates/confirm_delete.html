@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-12 rounded-[3rem] shadow-sm border border-gray-100 text-center mt-20">
+    <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
+        🗑️
+    </div>
+    <h2 class="text-2xl font-black text-gray-900 mb-2">Удалить запись?</h2>
+    <p class="text-gray-400 mb-10 leading-relaxed">Вы уверены, что хотите удалить <br><span class="font-bold text-gray-800">"{{ obj }}"</span>? <br>Это действие нельзя отменить.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black hover:bg-red-600 transition shadow-lg shadow-red-100">
+            Да, удалить
+        </button>
+        <a href="javascript:history.back()" class="block mt-6 text-gray-400 font-bold hover:text-gray-600 transition">
+            Я передумал
+        </a>
+    </form>
+</div>
+{% endblock %}

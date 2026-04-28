@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-sm border border-gray-100 mt-10">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-4xl font-black text-gray-900">{{ cat.name }}</h1>
+        <div class="text-6xl">🐱</div>
+    </div>
+    
+    <div class="space-y-4">
+        <div class="flex justify-between border-b pb-2">
+            <span class="text-gray-500">Цвет</span>
+            <span class="font-bold">{{ cat.get_color_display }}</span>
+        </div>
+        <div class="flex justify-between border-b pb-2">
+            <span class="text-gray-500">Год рождения</span>
+            <span class="font-bold">{{ cat.birth_year }}</span>
+        </div>
+        <div class="flex justify-between border-b pb-2">
+            <span class="text-gray-500">Владелец</span>
+            <span class="font-bold text-indigo-600">@{{ cat.owner.username }}</span>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <h3 class="text-lg font-bold mb-3">Достижения:</h3>
+        <div class="flex flex-wrap gap-2">
+            {% for ach in cat.achievements.all %}
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
+                    🏆 {{ ach.name }}
+                </span>
+            {% empty %}
+                <span class="text-gray-400 italic">Пока нет достижений</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-10">
+        <a href="{% url 'cat_list' %}" class="text-indigo-600 font-bold hover:underline">← Вернуться к списку</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Kittygram</title>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+   <header class="bg-white border-b border-gray-100 py-4 px-8 mb-10">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        
+        <div class="flex items-center space-x-10">
+            <a href="{% url 'index' %}" class="text-2xl font-black tracking-tighter text-indigo-600 uppercase">
+                KITTYGRAM
+            </a>
+            <div class="hidden md:flex space-x-6 font-bold text-sm text-gray-500 uppercase tracking-widest">
+                <a href="{% url 'item_list' %}" class="hover:text-indigo-600 transition">Вещи</a>
+                <a href="{% url 'cat_list' %}" class="hover:text-indigo-600 transition">Коты</a>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            {% if user.is_authenticated %}
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'profile' %}" class="bg-indigo-50 text-indigo-600 px-5 py-2 rounded-xl text-sm font-black hover:bg-indigo-100 transition flex items-center">
+                        <span class="mr-2">👤</span> @{{ user.username }}
+                    </a>
+                    
+                    <form action="{% url 'logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="text-gray-400 hover:text-red-500 text-sm font-bold transition">
+                            Выйти
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'login' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-bold transition">
+                        Войти
+                    </a>
+                    <a href="{% url 'register' %}" class="bg-indigo-600 text-white px-5 py-2 rounded-xl text-sm font-black hover:bg-indigo-700 transition shadow-sm">
+                        Регистрация
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</header>
+    <main class="container mx-auto p-6 flex-grow">{% block content %}{% endblock %}</main>
+    <footer class="bg-white border-t p-8 text-center text-gray-400 text-sm italic">© 2026 Kittygram - Владислав Макатров</footer>
+</body>
+</html>
