@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'cats.apps.CatsConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -136,8 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.IsAuthenticated', #чтобы меня пропустило
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated', #чтобы меня пропустило
+        #'rest_framework.permissions.AllowAny',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [

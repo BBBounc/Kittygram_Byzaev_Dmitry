@@ -3,13 +3,17 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import PermissionDenied
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status as http_status
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
-from .models import Cat, Item, Achievement
-from .serializers import CatSerializer, ItemSerializer, AchievementSerializer
+from .models import Cat, Item, Achievement, Category
+from .serializers import CatSerializer, ItemSerializer, AchievementSerializer, CategorySerializer
 from .forms import CatForm, ItemForm
 
-# --- API ViewSets ---
+# Разрешения кастом
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -17,21 +21,78 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         owner = getattr(obj, 'owner', getattr(obj, 'author', None))
         return owner == request.user
 
+# вьюшки апишки
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ('name',)
+    search_fields = ('name',)
+
 class CatViewSet(viewsets.ModelViewSet):
     queryset = Cat.objects.all()
     serializer_class = CatSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ('color', 'owner')
+    search_fields = ('name',)
+    ordering_fields = ('birth_year',)
+    
     def perform_create(self, serializer): 
         serializer.save(owner=self.request.user)
+
+class AchievementViewSet(viewsets.ModelViewSet):
+    queryset = Achievement.objects.all()
+    serializer_class = AchievementSerializer
+    # Достижения могут смотреть все, а редактировать только админ или авторизованный
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ('name',)
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ('category__name', 'status', 'color') # Фильтр по имени категории
+    search_fields = ('title', 'description')
+    ordering_fields = ('price', 'pub_date')
+
     def perform_create(self, serializer): 
         serializer.save(author=self.request.user)
 
-# --- HTML Frontend (Главная и Списки) ---
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def reserve(self, request, pk=None):
+        item = self.get_object()
+        if item.status != 'available':
+            return Response({'error': 'Вещь недоступна'}, status=http_status.HTTP_400_BAD_REQUEST)
+        if item.author == request.user:
+            return Response({'error': 'Свою вещь бронировать нельзя'}, status=http_status.HTTP_400_BAD_REQUEST)
+        item.status = 'reserved'
+        item.reserved_by = request.user
+        item.save()
+        return Response({'message': 'Успешно забронировано'})
+
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def cancel(self, request, pk=None):
+        item = self.get_object()
+        item.status = 'available'
+        item.reserved_by = None
+        item.save()
+        return Response({'message': 'Бронь отменена'})
+
+    @action(detail=True, methods=['post'], permission_classes=[IsOwnerOrReadOnly])
+    def confirm(self, request, pk=None):
+        item = self.get_object()
+        if item.status != 'reserved':
+            return Response({'error': 'Вещь не была забронирована'}, status=http_status.HTTP_400_BAD_REQUEST)
+        item.status = 'given'
+        item.save()
+        return Response({'message': 'Передача подтверждена'})
+
+# Логика перехода на страницы
 
 def index(request):
     latest_items = Item.objects.all().order_by('-pub_date')[:3]
@@ -46,8 +107,6 @@ def cat_list(request):
     cats = Cat.objects.all()
     return render(request, 'cats/cat_list.html', {'cats': cats})
 
-# --- Детальные страницы с просмотрами ---
-
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     item.views_count += 1
@@ -60,7 +119,7 @@ def cat_detail(request, pk):
     cat.save()
     return render(request, 'cats/cat_detail.html', {'cat': cat})
 
-# --- КОТЫ (Создание, Редактирование, Удаление) ---
+# Логика CRUD для котиииииков
 
 @login_required
 def cat_create(request):
@@ -94,7 +153,7 @@ def cat_delete(request, pk):
         return redirect('cat_list')
     return render(request, 'confirm_delete.html', {'obj': cat})
 
-# --- ВЕЩИ (Создание, Редактирование, Удаление) ---
+# Логика CRUD на объявления
 
 @login_required
 def item_create(request):
@@ -127,7 +186,35 @@ def item_delete(request, pk):
         return redirect('item_list')
     return render(request, 'confirm_delete.html', {'obj': item})
 
-# --- Профиль и Регистрация ---
+# Логика взаимодействия с объявлениями
+
+@login_required
+def item_reserve(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if item.status == 'available' and item.author != request.user:
+        item.status = 'reserved'
+        item.reserved_by = request.user
+        item.save()
+    return redirect('item_detail', pk=pk)
+
+@login_required
+def item_cancel_reserve(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if item.reserved_by == request.user or item.author == request.user:
+        item.status = 'available'
+        item.reserved_by = None
+        item.save()
+    return redirect('item_detail', pk=pk)
+
+@login_required
+def item_confirm_given(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if item.author == request.user and item.status == 'reserved':
+        item.status = 'given'
+        item.save()
+    return redirect('item_detail', pk=pk)
+
+# Вьюшки на регистрацию и переход на профиль 
 
 @login_required
 def profile(request):

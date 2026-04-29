@@ -1,118 +1,110 @@
-# 🐈 Kittygram API
+
+# 🐾 Котошеринг: Kittygram 2.0
 
 ![Python](https://img.shields.io/badge/python-3.9-blue.svg)
-![Django](https://img.shields.io/badge/django-3.2-green.svg)
-![DRF](https://img.shields.io/badge/DRF-3.12-red.svg)
+![Django](https://img.shields.io/badge/django-4.2-green.svg)
+![Docker](https://img.shields.io/badge/docker-ready-blue.svg)
 
-**Kittygram** — это социальная сеть для любителей котиков. Через наш API пользователи могут регистрировать питомцев, фиксировать их достижения и следить за их возрастом в реальном времени.
-
----
-
-## 🛠 Технологический стек
-
-* **Язык:** Python 3.9
-* **Фреймворк:** Django + Django REST Framework (DRF)
-* **Аутентификация:** Djoser (JWT + Bearer Token)
-* **База данных:** SQLite (локальная разработка)
-* **Документация:** Swagger & ReDoc
+**Котошеринг** — это не просто социальная сеть для котиков, а цифровая экосистема рационального потребления. Пользователи могут вести учет питомцев и обмениваться излишками кормов, медикаментов и аксессуаров через встроенный маркетплейс.
 
 ---
 
-## 🚀 Как запустить проект (Локально)
+## 🛠 1. Подготовка и установка
 
-### 1. Клонирование и переход в папку
+### Системные требования
+* **Git** (для клонирования репозитория)
+* **Docker Desktop** (рекомендуется для быстрого развертывания)
+* **Python 3.9+** (для локальной разработки)
+
+### Клонирование проекта
 ```bash
-git clone https://github.com/BBBounc/kittygramMakatrovVD.git
-cd kittygramMakatrovVD
-```
-
-### 2. Настройка виртуального окружения
-Это создаст изолированную среду для проекта, чтобы зависимости не конфликтовали с системными.
-
-**Для Windows:**
-```bash
-python -m venv venv
-source venv/Scripts/activate
-```
-
-**Для Linux / macOS:**
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Установка зависимостей
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-pip install python-dotenv
-```
-
-### 4. Настройка окружения (`.env`)
-Создайте файл `.env` в корневом каталоге проекта. Это необходимо для безопасности ваших данных.
-
-**Содержимое `.env`:**
-```env
-SECRET_KEY=django-insecure-ваша-секретная-строка
-DEBUG=True
-ALLOWED_HOSTS=127.0.0.1,localhost
+git clone https://github.com/BBBounc/kittygramMakatrovVDv2.git
+cd kittygramMakatrovVDv2
 ```
 
 ---
 
-## 💾 Работа с базой данных
+## 🚀 2. Быстрый запуск через Docker (Рекомендуется)
 
-Чтобы подготовить таблицы в SQLite и запустить сервер:
+Это самый простой способ запустить проект вместе с базой данных PostgreSQL, не устанавливая ничего лишнего на компьютер.
 
-1.  **Выполнение миграций:**
+1.  **Запустите Docker Desktop.**
+2.  **Соберите и запустите контейнеры:**
+    ```bash
+    docker-compose up -d --build
+    ```
+3.  **Примените миграции и создайте администратора:**
+    ```bash
+    docker-compose exec web python manage.py migrate
+    docker-compose exec web python manage.py createsuperuser
+    docker-compose exec web python manage.py collectstatic --no-input
+    ```
+    Проект доступен по адресу: `http://127.0.0.1:8000/`
+
+---
+
+## 💻 3. Локальный запуск (без Docker)
+
+Если нужно запустить проект в виртуальном окружении:
+
+1.  **Создайте и активируйте venv:**
+    ```bash
+    python -m venv venv
+    source venv/Scripts/activate  # Для Windows: venv\Scripts\activate
+    ```
+2.  **Установите зависимости:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Настройте `.env`:** Создайте файл в корне и добавьте `SECRET_KEY`, `DEBUG=True`.
+4.  **Запустите сервер:**
     ```bash
     python manage.py migrate
-    ```
-2.  **Создание администратора (по желанию):**
-    ```bash
-    python manage.py createsuperuser
-    ```
-3.  **Запуск сервера:**
-    ```bash
     python manage.py runserver
     ```
-    Проект будет доступен по адресу: `http://127.0.0.1:8000/`
 
 ---
 
-## 📡 Основные эндпоинты API
+## 📑 4. API-контракт (Эндпоинты)
 
-| Метод | Эндпоинт | Описание |
-| :--- | :--- | :--- |
-| **POST** | `/auth/users/` | Регистрация нового пользователя |
-| **POST** | `/auth/jwt/create/` | Получение JWT-токена (Login) |
-| **GET** | `/cats/` | Список всех котиков |
-| **POST** | `/cats/` | Добавление котика (нужен токен) |
-| **PATCH** | `/cats/{id}/` | Частичное обновление данных |
-| **DELETE** | `/cats/{id}/` | Удаление котика |
-| **GET** | `/achievements/` | Список всех достижений в системе |
+| Метод | URL | Описание | Доступ |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/auth/jwt/create/` | Логин (получение токена) | Any |
+| **GET** | `/api/items/` | Список вещей в SmartPantry (с пагинацией) | Any |
+| **POST** | `/api/items/` | Выставить вещь на обмен (лимит 5 шт) | Auth |
+| **POST** | `/api/items/{id}/reserve/` | Забронировать вещь (Custom Action) | Auth |
+| **POST** | `/api/items/{id}/confirm/` | Подтвердить передачу (Custom Action) | Owner |
+| **POST** | `/api/cats/` | Добавить котика в профиль | Auth |
+| **GET** | `/api/categories/` | Список категорий (Корм, Игрушки и т.д.) | Any |
 
 ---
 
-## 🧪 Примеры запросов (JSON)
+## 🧪 5. Примеры запросов (JSON)
 
-**Создание кота с привязкой достижения (ID: 1):**
+### Добавление вещи в SmartPantry (POST /api/items/)
 ```json
 {
-    "name": "Борис",
-    "color": "Gray",
-    "birth_year": 2021,
-    "achievements": [1]
+    "title": "Корм Gourmet Gold 85г",
+    "category": "Корм",
+    "description": "Срок до 2027 года, говядина",
+    "price": 0,
+    "color": "Красный"
 }
 ```
 
+### Фильтрация данных (GET)
+* **По категории:** `GET /api/items/?category__name=Корм`
+* **Поиск по тексту:** `GET /api/items/?search=Gourmet`
+
 ---
 
-## 🛡 Безопасность и Валидация
-* **JWT Auth:** Доступ к созданию и редактированию котиков есть только у авторизованных пользователей.
-* **Owner Only:** Редактировать и удалять котика может только тот пользователь, который его добавил.
-* **Business Logic:** Реализована проверка года рождения (не старше 40 лет) и уникальности имени кота для одного владельца.
+## 🛡 6. Безопасность и логика
+* **JWT Auth:** Все операции с данными требуют Bearer Token.
+* **Permissions:** Редактирование и удаление доступно только автору (IsOwnerOrReadOnly).
+* **Бизнес-логика:** Реализована система статусов (`available`, `reserved`, `given`) и ограничение на количество активных объявлений.
 
+---
 
 **Разработчик:** [Владислав Макатров](https://github.com/BBBounc)  
+**Проект:** Проектирование и реализация серверной части проекта Kittygram для поддержки пользовательского сценария "Обмен вещами (котошеринг)"  
 **Год:** 2026

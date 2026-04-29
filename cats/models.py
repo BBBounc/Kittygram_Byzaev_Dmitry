@@ -18,14 +18,8 @@ class Cat(models.Model):
     color = models.CharField(max_length=16, choices=CHOICES)
     birth_year = models.IntegerField()
     owner = models.ForeignKey(User, related_name='cats', on_delete=models.CASCADE)
-    # Исправил: убрал запятую в конце, чтобы поле инициализировалось правильно
     achievements = models.ManyToManyField(Achievement, through='AchievementCat')
     views_count = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
-
-    # Добавил метод расчета возраста (удобно для вывода в шаблоне)
-    @property
-    def age(self):
-        return datetime.datetime.now().year - self.birth_year
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['name', 'owner'], name='unique_name_owner')]
@@ -36,19 +30,39 @@ class AchievementCat(models.Model):
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
     cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
 
+# НОВАЯ МОДЕЛЬ ДЛЯ КАТЕГОРИЙ
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name="Название")
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+    def __str__(self): return self.name
+
 class Item(models.Model):
-    CATEGORY_CHOICES = [
-        ('food', 'Корм'), ('clothes', 'Вещи'),
-        ('toys', 'Игрушки'), ('carriers', 'Переноски'),
+    STATUS_CHOICES = [
+        ('available', 'Доступно'),
+        ('reserved', 'Забронировано'),
+        ('given', 'Передано'),
     ]
+
     title = models.CharField(max_length=100)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    # Заменили текстовое поле на связь
+    category = models.ForeignKey(
+        Category, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        related_name='items',
+        verbose_name="Категория"
+    )
     description = models.TextField()
     color = models.CharField(max_length=30, blank=True, null=True)
     price = models.PositiveIntegerField(default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='items')
-    # Поле просмотров для вещей уже на месте
     views_count = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
     pub_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
+    reserved_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True, related_name='booked_items'
+    )
 
     def __str__(self): return self.title

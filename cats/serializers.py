@@ -1,25 +1,40 @@
 import datetime as dt
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from .models import Cat, Achievement, CHOICES, Item
+from .models import Cat, Achievement, Item, Category
 
 class AchievementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Achievement
         fields = ('id', 'name')
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'name')
+
 class ItemSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(slug_field='username', read_only=True)
-    likes_count = serializers.IntegerField(source='likes.count', read_only=True)
+    category = serializers.SlugRelatedField(
+        slug_field='name', 
+        queryset=Category.objects.all()
+    )
+    reserved_by_username = serializers.SlugRelatedField(
+        source='reserved_by', slug_field='username', read_only=True
+    )
 
     class Meta:
         model = Item
-        fields = '__all__'
+        fields = (
+            'id', 'title', 'category', 'description', 'color', 'price', 
+            'author', 'status', 'reserved_by_username', 'views_count', 'pub_date'
+        )
+        read_only_fields = ('status', 'reserved_by', 'views_count', 'author')
 
     def validate(self, data):
-        user = self.context['request'].user
-        if self.context['request'].method == 'POST':
-            if Item.objects.filter(author=user).count() >= 5:
+        request = self.context.get('request')
+        if request and request.method == 'POST':
+            if Item.objects.filter(author=request.user).count() >= 5:
                 raise serializers.ValidationError('Лимит: не более 5 вещей на пользователя!')
         return data
 
@@ -32,7 +47,7 @@ class CatSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cat
-        fields = ('id', 'name', 'color', 'birth_year', 'achievements', 'owner', 'age')
+        fields = ('id', 'name', 'color', 'birth_year', 'achievements', 'owner', 'age', 'views_count')
         validators = [
             UniqueTogetherValidator(
                 queryset=Cat.objects.all(), fields=('name', 'owner'),
