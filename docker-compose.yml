@@ -1,10 +1,17 @@
 version: '3.8'
 
 services:
- web:
-    platform: linux/amd64
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: kittygram
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123
+
+  web:
     build: .
-    # Контейнер сам сделает миграции при запуске
     command: >
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
@@ -12,4 +19,10 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

@@ -78,6 +78,10 @@ class ItemViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def cancel(self, request, pk=None):
         item = self.get_object()
+        # ПРОВЕРКА: только автор или тот кто забронировал
+        if item.author != request.user and item.reserved_by != request.user:
+            return Response({'error': 'Вы не можете отменить чужую бронь'}, status=http_status.HTTP_403_FORBIDDEN)
+        
         item.status = 'available'
         item.reserved_by = None
         item.save()
@@ -200,10 +204,13 @@ def item_reserve(request, pk):
 @login_required
 def item_cancel_reserve(request, pk):
     item = get_object_or_404(Item, pk=pk)
+    # ПРОВЕРКА безопасности
     if item.reserved_by == request.user or item.author == request.user:
         item.status = 'available'
         item.reserved_by = None
         item.save()
+    else:
+        raise PermissionDenied # Выкинет 403 ошибку
     return redirect('item_detail', pk=pk)
 
 @login_required

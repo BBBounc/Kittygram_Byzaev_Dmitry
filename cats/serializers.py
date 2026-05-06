@@ -32,11 +32,17 @@ class ItemSerializer(serializers.ModelSerializer):
         read_only_fields = ('status', 'reserved_by', 'views_count', 'author')
 
     def validate(self, data):
-        request = self.context.get('request')
-        if request and request.method == 'POST':
-            if Item.objects.filter(author=request.user).count() >= 5:
-                raise serializers.ValidationError('Лимит: не более 5 вещей на пользователя!')
-        return data
+            request = self.context.get('request')
+            if request and request.method == 'POST':
+                # Считаем только те вещи автора, которые имеют статус 'available'
+                active_items_count = Item.objects.filter(
+                    author=request.user, 
+                    status='available'
+                ).count()
+                
+                if active_items_count >= 5:
+                    raise serializers.ValidationError('Лимит: не более 5 активных объявлений на пользователя!')
+            return data
 
 class CatSerializer(serializers.ModelSerializer):
     achievements = serializers.PrimaryKeyRelatedField(
