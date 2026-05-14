@@ -1,47 +1,38 @@
-Вот обновлённый README.md под ваш проект Kittygram с событиями и рейтингом:
-
 ```markdown
+<div align="center">
+
 # 🐱 Kittygram: Сезонные события и рейтинг котов
 
-![Python](https://img.shields.io/badge/python-3.11-blue.svg)
-![Django](https://img.shields.io/badge/django-5.2-green.svg)
-![Docker](https://img.shields.io/badge/docker-ready-blue.svg)
-![REST API](https://img.shields.io/badge/REST-API-red.svg)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![REST API](https://img.shields.io/badge/REST-API-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 
-**Kittygram** — это социальная платформа для котов и их владельцев с уникальной системой сезонных событий и рейтинга. Участвуйте в событиях, получайте достижения, повышайте рейтинг своего кота и становитесь лучшим в сообществе!
+**Kittygram** — социальная платформа для котов и их владельцев с уникальной системой **сезонных событий** и **рейтинга**
 
----
+✨ Участвуйте в событиях • 🏆 Получайте достижения • ⭐ Повышайте рейтинг своего кота
 
-## ✨ Новые возможности
-
-### 🎪 **Сезонные события**
-- Зимние, весенние, летние и осенние мероприятия
-- Бонусные очки рейтинга за участие
-- Автоматическое начисление наград
-
-### ⭐ **Система рейтинга**
-- Начисление очков за участие в событиях
-- Лайки от других пользователей (+5 очков)
-- Отображение топа котов на главной странице
-
-### 🏆 **Достижения**
-- 15+ уникальных достижений для котов
-- Автоматическое создание при миграции
-- Визуальное отображение в профиле
-
-### ❤️ **Лайки**
-- Только авторизованные пользователи
-- Нельзя лайкать своего кота
-- Обновление рейтинга в реальном времени
+</div>
 
 ---
 
-## 🛠 1. Подготовка и установка
+## 🌟 Новые возможности
+
+| Функция | Описание |
+|:---:|:---|
+| 🎪 **Сезонные события** | Зимние, весенние, летние и осенние мероприятия с бонусными очками |
+| ⭐ **Система рейтинга** | Начисление очков за участие в событиях и лайки от пользователей |
+| 🏆 **Достижения** | 15+ уникальных достижений для котов, автоматическое создание |
+| ❤️ **Лайки** | Только авторизованные пользователи, нельзя лайкать своего кота, +5 очков |
+
+---
+
+## 🛠 Установка и запуск
 
 ### Системные требования
-- **Git** (для клонирования репозитория)
-- **Docker Desktop** (рекомендуется для быстрого развертывания)
-- **Python 3.11+** (для локальной разработки)
+- Git
+- Docker Desktop (рекомендуется) или Python 3.11+
 
 ### Клонирование проекта
 ```bash
@@ -49,109 +40,97 @@ git clone https://github.com/BBBounc/Kittygram_Byzaev_Dmitry.git
 cd Kittygram_Byzaev_Dmitry
 ```
 
----
-
-## 🚀 2. Быстрый запуск через Docker (Рекомендуется)
-
-Самый простой способ запустить проект вместе с базой данных PostgreSQL.
-
-1. **Запустите Docker Desktop.**
-
-2. **Создайте файл `.env` в корне проекта:**
-```env
-SECRET_KEY=dev-secret-key-123456789
-DEBUG=True
-DB_NAME=kittygram
-DB_USER=root
-DB_PASSWORD=123
-DB_HOST=db
-DB_PORT=5432
-```
-
-3. **Соберите и запустите контейнеры:**
+### Запуск через Docker (рекомендуется)
 ```bash
+# Создайте файл .env
+echo "SECRET_KEY=dev-secret-key-123456789" > .env
+echo "DEBUG=True" >> .env
+echo "DB_NAME=kittygram" >> .env
+echo "DB_USER=root" >> .env
+echo "DB_PASSWORD=123" >> .env
+echo "DB_HOST=db" >> .env
+echo "DB_PORT=5432" >> .env
+
+# Запустите контейнеры
 docker-compose up -d --build
-```
 
-4. **Примените миграции и создайте администратора:**
-```bash
+# Примените миграции
 docker-compose exec web python manage.py migrate
+
+# Создайте суперпользователя
 docker-compose exec web python manage.py createsuperuser
 ```
 
-5. **Проект доступен по адресу:** `http://localhost:8000`
-
----
-
-## 💻 3. Локальный запуск (без Docker)
-
-Если нужно запустить проект в виртуальном окружении:
-
-1. **Создайте и активируйте venv:**
+### Локальный запуск (без Docker)
 ```bash
+# Создайте виртуальное окружение
 python -m venv venv
 # Windows:
 venv\Scripts\activate
 # Linux/Mac:
 source venv/bin/activate
-```
 
-2. **Установите зависимости:**
-```bash
+# Установите зависимости
 pip install -r requirements.txt
-```
 
-3. **Настройте `.env`:** Создайте файл в корне:
-```env
-SECRET_KEY=your-secret-key-here
-DEBUG=True
-```
-
-4. **Запустите сервер:**
-```bash
+# Примените миграции
 python manage.py migrate
+
+# Запустите сервер
 python manage.py runserver
 ```
 
----
-
-## 📑 4. API Эндпоинты
-
-### 🐱 Коты
-| Метод | URL | Описание | Доступ |
-| :--- | :--- | :--- | :--- |
-| **GET** | `/api/cats/` | Список всех котов | Any |
-| **POST** | `/api/cats/` | Добавить кота | Auth |
-| **GET** | `/api/cats/{id}/` | Получить кота | Any |
-| **PATCH** | `/api/cats/{id}/` | Обновить кота | Owner |
-| **DELETE** | `/api/cats/{id}/` | Удалить кота | Owner |
-
-### 🎪 События
-| Метод | URL | Описание | Доступ |
-| :--- | :--- | :--- | :--- |
-| **GET** | `/api/events/` | Список событий | Any |
-| **POST** | `/api/events/` | Создать событие | Admin |
-| **GET** | `/api/events/{id}/` | Получить событие | Any |
-
-### 🏆 Достижения
-| Метод | URL | Описание | Доступ |
-| :--- | :--- | :--- | :--- |
-| **GET** | `/api/achievements/` | Список достижений | Any |
-| **POST** | `/api/achievements/` | Создать достижение | Admin |
-
-### 🔐 Аутентификация
-| Метод | URL | Описание | Доступ |
-| :--- | :--- | :--- | :--- |
-| **POST** | `/api/token/` | Получить JWT токен | Any |
-| **POST** | `/api/token/refresh/` | Обновить токен | Auth |
+### Доступ к приложению
+| Сервис | URL |
+|:---|:---|
+| Главная страница | `http://localhost:8000` |
+| Админ-панель | `http://localhost:8000/admin` |
+| API Endpoint | `http://localhost:8000/api/` |
 
 ---
 
-## 🧪 5. Примеры запросов (JSON)
+## 📡 API Endpoints
+
+### Коты
+| Метод | URL | Описание | Доступ |
+|:---:|:---|:---|:---:|
+| GET | `/api/cats/` | Список всех котов | Все |
+| POST | `/api/cats/` | Добавить кота | Auth |
+| GET | `/api/cats/{id}/` | Получить кота | Все |
+| PATCH | `/api/cats/{id}/` | Обновить кота | Владелец |
+| DELETE | `/api/cats/{id}/` | Удалить кота | Владелец |
+
+### События
+| Метод | URL | Описание | Доступ |
+|:---:|:---|:---|:---:|
+| GET | `/api/events/` | Список событий | Все |
+| POST | `/api/events/` | Создать событие | Admin |
+| GET | `/api/events/{id}/` | Получить событие | Все |
+
+### Достижения
+| Метод | URL | Описание | Доступ |
+|:---:|:---|:---|:---:|
+| GET | `/api/achievements/` | Список достижений | Все |
+| POST | `/api/achievements/` | Создать достижение | Admin |
+
+### Участие в событиях
+| Метод | URL | Описание | Доступ |
+|:---:|:---|:---|:---:|
+| POST | `/api/participations/join_event/` | Участвовать в событии | Auth |
+
+### Аутентификация
+| Метод | URL | Описание | Доступ |
+|:---:|:---|:---|:---:|
+| POST | `/api/token/` | Получить JWT токен | Все |
+| POST | `/api/token/refresh/` | Обновить токен | Auth |
+
+---
+
+## 🧪 Примеры запросов
 
 ### Получение JWT токена
-**POST** `/api/token/`
 ```json
+POST /api/token/
 {
     "username": "admin",
     "password": "admin123"
@@ -159,8 +138,8 @@ python manage.py runserver
 ```
 
 ### Создание кота
-**POST** `/api/cats/`
 ```json
+POST /api/cats/
 {
     "name": "Барсик",
     "color": "Ginger",
@@ -170,73 +149,54 @@ python manage.py runserver
 ```
 
 ### Создание сезонного события
-**POST** `/api/events/`
 ```json
+POST /api/events/
 {
     "name": "Новогодний карнавал",
     "season": "winter",
     "start_date": "2026-12-20",
     "end_date": "2027-01-15",
-    "description": "Праздничное мероприятие с бонусами",
+    "description": "Праздничное мероприятие",
     "bonus_points": 100
 }
 ```
 
 ### Участие кота в событии
-**POST** `/api/participations/join_event/`
 ```json
+POST /api/participations/join_event/
 {
     "cat_id": 1,
     "event_id": 1
 }
 ```
 
-### Лайк кота (HTML эндпоинт)
-**POST** `/cats/{id}/like/`
-
----
-
-## 🔍 6. Фильтрация, поиск и сортировка
-
-### Фильтрация
-```
-GET /api/cats/?color=Ginger          # Рыжие коты
-GET /api/events/?season=winter       # Зимние события
-```
-
-### Поиск
-```
-GET /api/cats/?search=Барс           # Поиск по имени
-GET /api/events/?search=Новогодний   # Поиск событий
-```
-
-### Сортировка
-```
-GET /api/cats/?ordering=-rating_points    # Топ по рейтингу
-GET /api/cats/?ordering=-likes_count      # По лайкам
-GET /api/cats/?ordering=-birth_year       # Молодые сначала
-GET /api/events/?ordering=start_date      # По дате начала
-```
-
-### Комбинированные запросы
-```
-GET /api/cats/?color=Ginger&ordering=-rating_points&search=Барс
+### Лайк кота
+```http
+POST /cats/1/like/
 ```
 
 ---
 
-## 🛡 7. Безопасность и логика
+## 🔍 Фильтрация, поиск и сортировка
 
-### Аутентификация
+| Тип | Пример запроса |
+|:---|:---|
+| Фильтрация по цвету | `GET /api/cats/?color=Ginger` |
+| Фильтрация по сезону | `GET /api/events/?season=winter` |
+| Поиск по имени | `GET /api/cats/?search=Барс` |
+| Поиск событий | `GET /api/events/?search=Новогодний` |
+| Сортировка по рейтингу | `GET /api/cats/?ordering=-rating_points` |
+| Сортировка по лайкам | `GET /api/cats/?ordering=-likes_count` |
+| Сортировка по году | `GET /api/cats/?ordering=-birth_year` |
+| Комбинированный запрос | `GET /api/cats/?color=Ginger&ordering=-rating_points&search=Барс` |
+
+---
+
+## 🛡 Безопасность и права доступа
+
 - **JWT Bearer Token** для API запросов
-- Только авторизованные пользователи могут:
-  - Добавлять котов
-  - Ставить лайки
-  - Участвовать в событиях
-
-### Права доступа
-- **IsOwnerOrReadOnly**: Редактирование только владельцем кота
-- **IsAuthenticatedOrReadOnly**: Чтение для всех, запись для авторизованных
+- **IsOwnerOrReadOnly** — редактирование только владельцем кота
+- **IsAuthenticatedOrReadOnly** — чтение для всех, запись для авторизованных
 
 ### Бизнес-логика
 - ✅ Нельзя лайкать своего кота
@@ -247,44 +207,7 @@ GET /api/cats/?color=Ginger&ordering=-rating_points&search=Барс
 
 ---
 
-## 📁 8. Структура проекта
-
-```
-Kittygram_Byzaev_Dmitry/
-├── cats/
-│   ├── migrations/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-├── kittygram2/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── templates/
-│   ├── base.html
-│   ├── index.html
-│   ├── cats/
-│   ├── events/
-│   └── registration/
-├── static/
-├── media/
-├── docker-compose.yml
-├── Dockerfile
-├── requirements.txt
-├── .env.example
-├── .gitignore
-└── README.md
-```
-
----
-
-## 🐳 9. Docker команды
+## 🐳 Docker команды
 
 ```bash
 # Запуск в фоновом режиме
@@ -307,11 +230,10 @@ docker-compose exec web bash
 
 ---
 
-## 🧪 10. Тестирование
+## 🧪 Тестирование
 
-### Создание тестовых данных
+### Создание тестовых достижений
 ```bash
-# Добавить достижения
 docker-compose exec web python manage.py shell -c "
 from cats.models import Achievement
 achievements = ['Любитель рыбки', 'Мастер охоты', 'Король сна']
@@ -319,7 +241,7 @@ for name in achievements: Achievement.objects.get_or_create(name=name)
 "
 ```
 
-### Проверка API через браузер
+### Проверка API
 ```
 http://localhost:8000/api/cats/
 http://localhost:8000/api/events/
@@ -328,10 +250,42 @@ http://localhost:8000/api/achievements/
 
 ---
 
+## 📁 Структура проекта
+
+```
+Kittygram_Byzaev_Dmitry/
+├── cats/                   # Основное приложение
+│   ├── migrations/         # Миграции БД
+│   ├── admin.py           # Админ-панель
+│   ├── forms.py           # Формы
+│   ├── models.py          # Модели данных
+│   ├── serializers.py     # API сериализаторы
+│   ├── urls.py            # Маршруты
+│   └── views.py           # Контроллеры
+├── kittygram2/            # Конфигурация проекта
+│   ├── settings.py        # Настройки Django
+│   └── urls.py            # Главные маршруты
+├── templates/             # HTML шаблоны
+│   ├── cats/              # Шаблоны котов
+│   ├── events/            # Шаблоны событий
+│   └── registration/      # Шаблоны регистрации
+├── static/                # Статические файлы
+├── media/                 # Медиа файлы
+├── docker-compose.yml     # Docker Compose
+├── Dockerfile             # Docker образ
+├── requirements.txt       # Зависимости
+├── .env.example          # Пример переменных
+├── .gitignore            # Игнорируемые файлы
+└── README.md             # Документация
+```
+
+---
+
 ## 👨‍💻 Разработчик
 
-**Дмитрий Byzaev**  
-GitHub: [@BBBounc](https://github.com/BBBounc)
+**Дмитрий Byzaev**
+
+[![GitHub](https://img.shields.io/badge/GitHub-BBBounc-181717?style=flat-square&logo=github)](https://github.com/BBBounc)
 
 ---
 
@@ -341,15 +295,13 @@ MIT License
 
 ---
 
-**Проект:** Проектирование и реализация серверной части проекта Kittygram для поддержки пользовательского сценария "Сезонные события и рейтинг"  
+<div align="center">
+  
+**Проект:** Проектирование и реализация серверной части проекта Kittygram  
+**Сценарий:** Сезонные события и рейтинг  
 **Год:** 2026
-```
 
-Этот README.md:
-- ✅ Обновлён под ваш проект Kittygram
-- ✅ Добавлена информация о сезонных событиях
-- ✅ Описана система рейтинга
-- ✅ Добавлены примеры API запросов
-- ✅ Красивое оформление с бейджами
-- ✅ Понятная структура и инструкции
-- ✅ Включены все новые функции (лайки, достижения, события)
+🐾 *Будьте добрее к котам и они ответят вам тем же* 🐾
+
+</div>
+```
