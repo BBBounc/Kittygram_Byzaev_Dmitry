@@ -82,79 +82,60 @@
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Backhand%20Index%20Pointing%20Right%20Dark%20Skin%20Tone.png" width="30"> **Быстрый старт**
 
-### 📦 Клонирование
-
+### Клонирование
 ```bash
 git clone https://github.com/BBBounc/Kittygram_Byzaev_Dmitry.git
 cd Kittygram_Byzaev_Dmitry
-🐳 Запуск через Docker (рекомендуется)
-bash
-# Создаём .env файл
-cat > .env << EOF
-SECRET_KEY=dev-secret-key-123456789
-DEBUG=True
-DB_NAME=kittygram
-DB_USER=root
-DB_PASSWORD=123
-DB_HOST=db
-DB_PORT=5432
-EOF
 
-# Запускаем контейнеры
+# Создание .env файла
+echo "SECRET_KEY=dev-secret-key-123456789" > .env
+echo "DEBUG=True" >> .env
+echo "DB_NAME=kittygram" >> .env
+echo "DB_USER=root" >> .env
+echo "DB_PASSWORD=123" >> .env
+echo "DB_HOST=db" >> .env
+echo "DB_PORT=5432" >> .env
+
+# Запуск
 docker-compose up -d --build
-
-# Применяем миграции
 docker-compose exec web python manage.py migrate
-
-# Создаём администратора
 docker-compose exec web python manage.py createsuperuser
-💻 Локальный запуск
+
+
+Локальный запуск
 bash
-# Создаём виртуальное окружение
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate  # Windows
-
-# Устанавливаем зависимости
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
-# Запускаем
 python manage.py migrate
 python manage.py runserver
-🌐 Доступ
-🖥️ Веб-интерфейс	http://localhost:8000
-🔧 Админ-панель	http://localhost:8000/admin
-📡 API	http://localhost:8000/api/
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Laptop.png" width="30"> API Endpoints
-🐱 Коты
-Метод	URL	Доступ	Описание
-GET	/api/cats/	Все	📋 Список всех котов
-POST	/api/cats/	Auth	✨ Добавить кота
-GET	/api/cats/{id}/	Все	🔍 Просмотр кота
-PATCH	/api/cats/{id}/	Владелец	✏️ Обновить кота
-DELETE	/api/cats/{id}/	Владелец	🗑️ Удалить кота
-🎪 События
-Метод	URL	Доступ	Описание
-GET	/api/events/	Все	📋 Список событий
-POST	/api/events/	Admin	✨ Создать событие
-GET	/api/events/{id}/	Все	🔍 Просмотр события
-🏆 Достижения
-Метод	URL	Доступ	Описание
-GET	/api/achievements/	Все	📋 Список достижений
-POST	/api/achievements/	Admin	✨ Создать достижение
-🔐 Аутентификация
-Метод	URL	Описание
-POST	/api/token/	🔑 Получить JWT токен
-POST	/api/token/refresh/	🔄 Обновить токен
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Video%20Game.png" width="30"> Примеры запросов
-<details> <summary><b>📝 Получение токена</b></summary>
+Доступ к приложению
+Сайт	http://localhost:8000
+Админка	http://localhost:8000/admin
+API	http://localhost:8000/api/
+API Endpoints
+Метод	URL	Описание	Доступ
+GET	/api/cats/	Список котов	Все
+POST	/api/cats/	Создать кота	Auth
+GET	/api/cats/{id}/	Просмотр кота	Все
+PATCH	/api/cats/{id}/	Обновить кота	Владелец
+DELETE	/api/cats/{id}/	Удалить кота	Владелец
+GET	/api/events/	Список событий	Все
+POST	/api/events/	Создать событие	Admin
+GET	/api/events/{id}/	Просмотр события	Все
+GET	/api/achievements/	Список достижений	Все
+POST	/api/token/	Получить JWT токен	Все
+Примеры запросов
+Получение токена
+
 json
 POST /api/token/
 {
     "username": "admin",
     "password": "admin123"
 }
-</details><details> <summary><b>🐱 Создание кота</b></summary>
+Создание кота
+
 json
 POST /api/cats/
 {
@@ -163,7 +144,8 @@ POST /api/cats/
     "birth_year": 2022,
     "achievements": [1, 2]
 }
-</details><details> <summary><b>🎪 Создание события</b></summary>
+Создание события
+
 json
 POST /api/events/
 {
@@ -174,15 +156,15 @@ POST /api/events/
     "description": "Праздничное мероприятие",
     "bonus_points": 100
 }
-</details><details> <summary><b>⭐ Участие в событии</b></summary>
+Участие в событии
+
 json
 POST /api/participations/join_event/
 {
     "cat_id": 1,
     "event_id": 1
 }
-</details>
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Magnifying%20Glass%20Tilted%20Left.png" width="30"> Фильтрация и поиск
+Фильтрация и сортировка
 bash
 # Фильтрация по цвету
 GET /api/cats/?color=Ginger
@@ -193,38 +175,47 @@ GET /api/events/?season=winter
 # Поиск по имени
 GET /api/cats/?search=Барс
 
-# Топ по рейтингу
+# Сортировка по рейтингу (убывание)
 GET /api/cats/?ordering=-rating_points
 
-# Топ по лайкам
+# Сортировка по лайкам
 GET /api/cats/?ordering=-likes_count
 
 # Комбинированный запрос
 GET /api/cats/?color=Ginger&ordering=-rating_points&search=Барс
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png" width="30"> Безопасность
-🔐 JWT аутентификация	Bearer Token для API
-🛡️ IsOwnerOrReadOnly	Редактирование только владельцем
-👤 IsAuthenticatedOrReadOnly	Чтение для всех, запись для авторизованных
-💝 Лайки	Нельзя лайкать своего кота
-⭐ Рейтинг	+5 за лайк, +бонус за события
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Waving%20Hand%20Light%20Skin%20Tone.png" width="30"> Docker команды
+Правила и ограничения
+Лайкнуть можно только чужого кота
+
+За лайк кот получает +5 очков рейтинга
+
+За участие в событии кот получает бонусные очки
+
+Редактировать кота может только владелец
+
+API требует JWT токен для защищённых эндпоинтов
+
+Docker команды
 bash
-docker-compose up -d          # Запуск в фоне
-docker-compose logs -f        # Просмотр логов
+docker-compose up -d          # Запуск
+docker-compose logs -f        # Логи
 docker-compose down           # Остановка
-docker-compose down -v        # Полная очистка
+docker-compose down -v        # Остановка с очисткой БД
 docker-compose exec web bash  # Вход в контейнер
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People%20with%20professions/Technologist%20Light%20Skin%20Tone.png" width="30"> Разработчик
-<div align="center">
+Разработчик
 Дмитрий Byzaev
 
-https://img.shields.io/badge/GitHub-BBBounc-181717?style=for-the-badge&logo=github&logoColor=white
+GitHub: BBBounc
 
-</div>
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Clipboard.png" width="30"> Лицензия
+Лицензия
 MIT License
 
-<div align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:059669&height=120&section=footer"/>
-Проект: Kittygram | Сценарий: Сезонные события и рейтинг | Год: 2026
+Проект: Kittygram | Сценарий: Сезонные события и рейтинг | 2026
 
-<p> <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" width="20"> <i>Будьте добрее к котам и они ответят вам тем же</i> <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" width="20"> </p></div></body> </html> ```
+text
+
+Вот теперь **чисто, минималистично и красиво**:
+- Нет лишних эмодзи
+- Чёткие заголовки
+- Аккуратные таблицы
+- Код в одну строку без караоке
+- Простые и понятные инструкции
