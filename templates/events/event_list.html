@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-black mb-8">Сезонные события 🎪</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for event in events %}
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-xl">{{ event.name }}</h3>
+            <span class="text-3xl">
+                {% if event.season == 'winter' %}❄️
+                {% elif event.season == 'spring' %}🌸
+                {% elif event.season == 'summer' %}☀️
+                {% elif event.season == 'autumn' %}🍂
+                {% endif %}
+            </span>
+        </div>
+        <p class="text-gray-600 text-sm mb-2">{{ event.description }}</p>
+        <div class="text-sm text-gray-500 mb-3">
+            📅 {{ event.start_date|date:"d.m.Y" }} - {{ event.end_date|date:"d.m.Y" }}
+        </div>
+        <div class="flex justify-between items-center">
+            <span class="text-indigo-600 font-bold">+{{ event.bonus_points }} очков</span>
+            {% if event.is_active %}
+                <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold">Активно</span>
+            {% else %}
+                <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-full text-xs">Завершено</span>
+            {% endif %}
+        </div>
+        <a href="{% url 'event_detail' event.id %}" class="mt-4 inline-block w-full text-center bg-indigo-50 text-indigo-600 px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-100 transition">
+            Подробнее
+        </a>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-3 text-center">Нет событий</p>
+    {% endfor %}
+</div>
+{% endblock %}

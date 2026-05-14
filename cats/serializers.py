@@ -1,48 +1,32 @@
 import datetime as dt
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from .models import Cat, Achievement, Item, Category
+from .models import Cat, Achievement, SeasonEvent, Participation
+
 
 class AchievementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Achievement
         fields = ('id', 'name')
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ('id', 'name')
 
-class ItemSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(slug_field='username', read_only=True)
-    category = serializers.SlugRelatedField(
-        slug_field='name', 
-        queryset=Category.objects.all()
-    )
-    reserved_by_username = serializers.SlugRelatedField(
-        source='reserved_by', slug_field='username', read_only=True
-    )
+class SeasonEventSerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField(read_only=True)
 
     class Meta:
-        model = Item
-        fields = (
-            'id', 'title', 'category', 'description', 'color', 'price', 
-            'author', 'status', 'reserved_by_username', 'views_count', 'pub_date'
-        )
-        read_only_fields = ('status', 'reserved_by', 'views_count', 'author')
+        model = SeasonEvent
+        fields = ('id', 'name', 'season', 'start_date', 'end_date', 'description', 'bonus_points', 'is_active')
 
-    def validate(self, data):
-            request = self.context.get('request')
-            if request and request.method == 'POST':
-                # Считаем только те вещи автора, которые имеют статус 'available'
-                active_items_count = Item.objects.filter(
-                    author=request.user, 
-                    status='available'
-                ).count()
-                
-                if active_items_count >= 5:
-                    raise serializers.ValidationError('Лимит: не более 5 активных объявлений на пользователя!')
-            return data
+
+class ParticipationSerializer(serializers.ModelSerializer):
+    cat_name = serializers.ReadOnlyField(source='cat.name')
+    event_name = serializers.ReadOnlyField(source='event.name')
+    
+    class Meta:
+        model = Participation
+        fields = ('id', 'cat', 'cat_name', 'event', 'event_name', 'joined_at', 'points_earned')
+        read_only_fields = ('joined_at', 'points_earned')
+
 
 class CatSerializer(serializers.ModelSerializer):
     achievements = serializers.PrimaryKeyRelatedField(
@@ -53,7 +37,8 @@ class CatSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cat
-        fields = ('id', 'name', 'color', 'birth_year', 'achievements', 'owner', 'age', 'views_count')
+        # Убрали total_rating, оставили rating_points
+        fields = ('id', 'name', 'color', 'birth_year', 'achievements', 'owner', 'age', 'views_count', 'rating_points', 'likes_count')
         validators = [
             UniqueTogetherValidator(
                 queryset=Cat.objects.all(), fields=('name', 'owner'),

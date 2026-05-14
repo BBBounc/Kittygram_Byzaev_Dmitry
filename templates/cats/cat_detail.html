@@ -1,41 +1,142 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-sm border border-gray-100 mt-10">
-    <div class="flex items-center justify-between mb-6">
-        <h1 class="text-4xl font-black text-gray-900">{{ cat.name }}</h1>
-        <div class="text-6xl">🐱</div>
+<div class="bg-white rounded-3xl shadow-lg overflow-hidden">
+    <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-8 text-white">
+        <div class="flex justify-between items-start">
+            <div>
+                <h1 class="text-4xl font-black mb-2">{{ cat.name }}</h1>
+                <p class="text-emerald-100">{{ cat.get_color_display }}</p>
+            </div>
+            <div class="text-6xl">🐱</div>
+        </div>
     </div>
     
-    <div class="space-y-4">
-        <div class="flex justify-between border-b pb-2">
-            <span class="text-gray-500">Цвет</span>
-            <span class="font-bold">{{ cat.get_color_display }}</span>
+    <div class="p-8">
+        <!-- Основная информация -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div>
+                <h3 class="font-bold text-gray-700 mb-2">📋 Информация</h3>
+                <div class="space-y-2 text-gray-600">
+                    <p>📅 Год рождения: {{ cat.birth_year }}</p>
+                    <p>🎂 Возраст: {{ cat.age }} лет</p>
+                    <p>👁️ Просмотров: {{ cat.views_count }}</p>
+                    <p>👤 Владелец: @{{ cat.owner.username }}</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-bold text-gray-700 mb-2">🏆 Достижения</h3>
+                <div class="flex flex-wrap gap-2">
+                    {% for achievement in cat.achievements.all %}
+                    <span class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-sm">{{ achievement.name }}</span>
+                    {% empty %}
+                    <p class="text-gray-500">Нет достижений</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <div class="flex justify-between border-b pb-2">
-            <span class="text-gray-500">Год рождения</span>
-            <span class="font-bold">{{ cat.birth_year }}</span>
+        
+        <!-- Рейтинг и лайки -->
+        <div class="border-t border-b border-gray-100 py-6 my-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-6">
+                    <div class="text-center bg-yellow-50 px-6 py-3 rounded-xl">
+                        <div class="text-3xl font-black text-yellow-600">{{ cat.rating_points }}</div>
+                        <div class="text-xs text-gray-500">⭐ Рейтинг</div>
+                    </div>
+                    <div class="text-center bg-pink-50 px-6 py-3 rounded-xl">
+                        <div class="text-3xl font-black text-pink-600">{{ cat.likes_count }}</div>
+                        <div class="text-xs text-gray-500">❤️ Лайков</div>
+                    </div>
+                </div>
+                
+                <!-- Кнопка лайка через POST форму -->
+                {% if user.is_authenticated %}
+                    {% if user != cat.owner %}
+                        {% if user_liked %}
+                            <form method="post" action="{% url 'unlike_cat' cat.id %}">
+                                {% csrf_token %}
+                                <button type="submit" 
+                                        class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-xl font-bold transition flex items-center space-x-2">
+                                    <span>❤️</span>
+                                    <span>Убрать лайк</span>
+                                </button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{% url 'like_cat' cat.id %}">
+                                {% csrf_token %}
+                                <button type="submit" 
+                                        class="bg-gray-100 hover:bg-pink-50 hover:text-pink-600 text-gray-600 px-6 py-3 rounded-xl font-bold transition flex items-center space-x-2">
+                                    <span>🤍</span>
+                                    <span>Поставить лайк</span>
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <div class="bg-gray-100 text-gray-500 px-6 py-3 rounded-xl font-bold">
+                            😊 Вы владелец этого кота
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="bg-gray-100 text-gray-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-200 transition">
+                        🔒 Войдите чтобы лайкать
+                    </a>
+                {% endif %}
+            </div>
         </div>
-        <div class="flex justify-between border-b pb-2">
-            <span class="text-gray-500">Владелец</span>
-            <span class="font-bold text-indigo-600">@{{ cat.owner.username }}</span>
+        
+        <!-- Участие в событиях -->
+        <div class="mb-8">
+            <h3 class="font-bold text-gray-700 mb-4">🎪 Участие в событиях</h3>
+            <div class="space-y-3">
+                {% for participation in events_participated %}
+                <div class="bg-gray-50 rounded-xl p-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold">{{ participation.event.name }}</p>
+                        <p class="text-sm text-gray-500">{{ participation.joined_at|date:"d.m.Y H:i" }}</p>
+                    </div>
+                    <div class="text-green-600 font-bold text-xl">+{{ participation.points_earned }}</div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-center py-4">Кот ещё не участвовал в событиях</p>
+                {% endfor %}
+            </div>
         </div>
-    </div>
-
-    <div class="mt-8">
-        <h3 class="text-lg font-bold mb-3">Достижения:</h3>
-        <div class="flex flex-wrap gap-2">
-            {% for ach in cat.achievements.all %}
-                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
-                    🏆 {{ ach.name }}
-                </span>
-            {% empty %}
-                <span class="text-gray-400 italic">Пока нет достижений</span>
-            {% endfor %}
+        
+        <!-- Кнопки редактирования для владельца -->
+        {% if user == cat.owner %}
+        <div class="pt-6 border-t border-gray-100 flex space-x-3">
+            <a href="{% url 'cat_edit' cat.id %}" class="bg-emerald-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-emerald-700 transition">
+                ✏️ Редактировать
+            </a>
+            <a href="{% url 'cat_delete' cat.id %}" class="bg-red-500 text-white px-6 py-2 rounded-xl font-bold hover:bg-red-600 transition">
+                🗑️ Удалить
+            </a>
         </div>
-    </div>
-
-    <div class="mt-10">
-        <a href="{% url 'cat_list' %}" class="text-indigo-600 font-bold hover:underline">← Вернуться к списку</a>
+        {% endif %}
     </div>
 </div>
+
+<!-- Сообщения от Django -->
+{% if messages %}
+    <div class="fixed top-20 right-4 z-50 space-y-2">
+        {% for message in messages %}
+        <div class="px-6 py-3 rounded-xl shadow-lg text-white font-bold 
+                    {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-blue-500{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <style>
+        .fixed > div {
+            animation: fadeOut 3s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateX(0); }
+            70% { opacity: 1; transform: translateX(0); }
+            100% { opacity: 0; transform: translateX(20px); display: none; }
+        }
+    </style>
+{% endif %}
 {% endblock %}

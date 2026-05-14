@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white">
+        <div class="flex justify-between items-start">
+            <div>
+                <h1 class="text-4xl font-black mb-2">{{ event.name }}</h1>
+                <p class="text-indigo-100">
+                    {% if event.season == 'winter' %}❄️ Зимнее событие
+                    {% elif event.season == 'spring' %}🌸 Весеннее событие
+                    {% elif event.season == 'summer' %}☀️ Летнее событие
+                    {% elif event.season == 'autumn' %}🍂 Осеннее событие
+                    {% endif %}
+                </p>
+            </div>
+            <div class="text-6xl">
+                {% if event.season == 'winter' %}❄️
+                {% elif event.season == 'spring' %}🌸
+                {% elif event.season == 'summer' %}☀️
+                {% elif event.season == 'autumn' %}🍂
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-8">
+        <div class="mb-8">
+            <h3 class="font-bold text-gray-700 mb-2">Описание</h3>
+            <p class="text-gray-600">{{ event.description }}</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div>
+                <h3 class="font-bold text-gray-700 mb-2">Даты</h3>
+                <p class="text-gray-600">📅 {{ event.start_date|date:"d.m.Y" }} - {{ event.end_date|date:"d.m.Y" }}</p>
+                {% if event.is_active %}
+                    <p class="text-green-600 font-bold mt-2">✅ Событие активно!</p>
+                {% else %}
+                    <p class="text-gray-500 mt-2">⏸️ Событие завершено</p>
+                {% endif %}
+            </div>
+            <div>
+                <h3 class="font-bold text-gray-700 mb-2">Награда</h3>
+                <p class="text-indigo-600 font-bold text-2xl">+{{ event.bonus_points }} очков рейтинга</p>
+            </div>
+        </div>
+        
+        <div class="mb-8">
+            <h3 class="font-bold text-gray-700 mb-4">Участники</h3>
+            <div class="space-y-2">
+                {% for participant in participants %}
+                <div class="flex justify-between items-center bg-gray-50 rounded-xl p-3">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">🐱</span>
+                        <a href="{% url 'cat_detail' participant.cat.id %}" class="font-bold hover:text-indigo-600">
+                            {{ participant.cat.name }}
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-green-600 font-bold">+{{ participant.points_earned }} очков</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500">Пока нет участников</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        {% if user.is_authenticated and event.is_active %}
+        <div class="border-t border-gray-100 pt-6">
+            <h3 class="font-bold text-gray-700 mb-4">Участвовать в событии</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {% for cat in user.cats.all %}
+                <a href="{% url 'join_event' event.id cat.id %}" class="bg-indigo-50 text-indigo-600 text-center px-4 py-3 rounded-xl font-bold hover:bg-indigo-100 transition">
+                    🐱 {{ cat.name }}
+                </a>
+                {% empty %}
+                <p class="text-gray-500">У вас нет котов, чтобы участвовать</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
