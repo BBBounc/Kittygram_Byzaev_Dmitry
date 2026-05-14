@@ -1,144 +1,161 @@
-```markdown
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
 <div align="center">
+  
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:059669&height=200&section=header&text=Kittygram&fontSize=70&fontColor=white&animation=fadeIn" width="100%"/>
 
-# 🐱 Kittygram: Сезонные события и рейтинг котов
+  <h1>
+    <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" alt="Cat" width="50" />
+    Сезонные события и рейтинг котов
+    <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" alt="Cat" width="50" />
+  </h1>
 
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Django](https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![REST API](https://img.shields.io/badge/REST-API-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+  <p>
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=3000&pause=500&color=10B981&center=true&vCenter=true&width=600&lines=Добро+пожаловать+в+Kittygram!;Участвуйте+в+событиях;Повышайте+рейтинг;Получайте+достижения" alt="Typing SVG" />
+  </p>
 
-**Kittygram** — социальная платформа для котов и их владельцев с уникальной системой **сезонных событий** и **рейтинга**
+  <p>
+    <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=2c3e50"/>
+    <img src="https://img.shields.io/badge/Django-5.2-092E20?style=flat-square&logo=django&logoColor=white&labelColor=2c3e50"/>
+    <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white&labelColor=2c3e50"/>
+    <img src="https://img.shields.io/badge/REST_API-FF6C37?style=flat-square&logo=postman&logoColor=white&labelColor=2c3e50"/>
+    <img src="https://img.shields.io/badge/PostgreSQL-15-4169E1?style=flat-square&logo=postgresql&logoColor=white&labelColor=2c3e50"/>
+  </p>
 
-✨ Участвуйте в событиях • 🏆 Получайте достижения • ⭐ Повышайте рейтинг своего кота
+</div>
 
+<br>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Sparkles.png" width="40"><br>
+        <b>15+</b><br>
+        Достижений
+      </td>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Party%20Popper.png" width="40"><br>
+        <b>4 сезона</b><br>
+        Событий
+      </td>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Star.png" width="40"><br>
+        <b>∞</b><br>
+        Рейтинг
+      </td>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Heart%20Decoration.png" width="40"><br>
+        <b>❤️</b><br>
+        Лайки
+      </td>
+    </tr>
+  </table>
 </div>
 
 ---
 
-## 🌟 Новые возможности
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Confetti%20Ball.png" width="30"> **О проекте**
 
-| Функция | Описание |
-|:---:|:---|
-| 🎪 **Сезонные события** | Зимние, весенние, летние и осенние мероприятия с бонусными очками |
-| ⭐ **Система рейтинга** | Начисление очков за участие в событиях и лайки от пользователей |
-| 🏆 **Достижения** | 15+ уникальных достижений для котов, автоматическое создание |
-| ❤️ **Лайки** | Только авторизованные пользователи, нельзя лайкать своего кота, +5 очков |
+**Kittygram** — это современная социальная платформа для котов и их владельцев.
+
+> ✨ **Уникальная система сезонных событий**  
+> 🏆 **Рейтинг котов с возможностью лайкать**  
+> 🎪 **Четыре сезонных мероприятия в год**  
+> ⭐ **Бонусные очки за активность**
 
 ---
 
-## 🛠 Установка и запуск
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Fire.png" width="30"> **Ключевые возможности**
 
-### Системные требования
-- Git
-- Docker Desktop (рекомендуется) или Python 3.11+
+| | | |
+|:---:|:---:|:---:|
+| 🎪 **Сезонные события**<br>Зимние, весенние, летние<br>и осенние мероприятия | ⭐ **Система рейтинга**<br>Очки за события и лайки<br>Топ котов на главной | 🏆 **Достижения**<br>15+ уникальных наград<br>Автоматическое создание |
+| ❤️ **Лайки**<br>+5 очков за лайк<br>Нельзя лайкать себя | 📡 **REST API**<br>Полный CRUD<br>JWT аутентификация | 🐳 **Docker**<br>Готов к развёртыванию<br>PostgreSQL в контейнере |
 
-### Клонирование проекта
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Backhand%20Index%20Pointing%20Right%20Dark%20Skin%20Tone.png" width="30"> **Быстрый старт**
+
+### 📦 Клонирование
+
 ```bash
 git clone https://github.com/BBBounc/Kittygram_Byzaev_Dmitry.git
 cd Kittygram_Byzaev_Dmitry
-```
+🐳 Запуск через Docker (рекомендуется)
+bash
+# Создаём .env файл
+cat > .env << EOF
+SECRET_KEY=dev-secret-key-123456789
+DEBUG=True
+DB_NAME=kittygram
+DB_USER=root
+DB_PASSWORD=123
+DB_HOST=db
+DB_PORT=5432
+EOF
 
-### Запуск через Docker (рекомендуется)
-```bash
-# Создайте файл .env
-echo "SECRET_KEY=dev-secret-key-123456789" > .env
-echo "DEBUG=True" >> .env
-echo "DB_NAME=kittygram" >> .env
-echo "DB_USER=root" >> .env
-echo "DB_PASSWORD=123" >> .env
-echo "DB_HOST=db" >> .env
-echo "DB_PORT=5432" >> .env
-
-# Запустите контейнеры
+# Запускаем контейнеры
 docker-compose up -d --build
 
-# Примените миграции
+# Применяем миграции
 docker-compose exec web python manage.py migrate
 
-# Создайте суперпользователя
+# Создаём администратора
 docker-compose exec web python manage.py createsuperuser
-```
-
-### Локальный запуск (без Docker)
-```bash
-# Создайте виртуальное окружение
+💻 Локальный запуск
+bash
+# Создаём виртуальное окружение
 python -m venv venv
-# Windows:
-venv\Scripts\activate
-# Linux/Mac:
-source venv/bin/activate
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
 
-# Установите зависимости
+# Устанавливаем зависимости
 pip install -r requirements.txt
 
-# Примените миграции
+# Запускаем
 python manage.py migrate
-
-# Запустите сервер
 python manage.py runserver
-```
-
-### Доступ к приложению
-| Сервис | URL |
-|:---|:---|
-| Главная страница | `http://localhost:8000` |
-| Админ-панель | `http://localhost:8000/admin` |
-| API Endpoint | `http://localhost:8000/api/` |
-
----
-
-## 📡 API Endpoints
-
-### Коты
-| Метод | URL | Описание | Доступ |
-|:---:|:---|:---|:---:|
-| GET | `/api/cats/` | Список всех котов | Все |
-| POST | `/api/cats/` | Добавить кота | Auth |
-| GET | `/api/cats/{id}/` | Получить кота | Все |
-| PATCH | `/api/cats/{id}/` | Обновить кота | Владелец |
-| DELETE | `/api/cats/{id}/` | Удалить кота | Владелец |
-
-### События
-| Метод | URL | Описание | Доступ |
-|:---:|:---|:---|:---:|
-| GET | `/api/events/` | Список событий | Все |
-| POST | `/api/events/` | Создать событие | Admin |
-| GET | `/api/events/{id}/` | Получить событие | Все |
-
-### Достижения
-| Метод | URL | Описание | Доступ |
-|:---:|:---|:---|:---:|
-| GET | `/api/achievements/` | Список достижений | Все |
-| POST | `/api/achievements/` | Создать достижение | Admin |
-
-### Участие в событиях
-| Метод | URL | Описание | Доступ |
-|:---:|:---|:---|:---:|
-| POST | `/api/participations/join_event/` | Участвовать в событии | Auth |
-
-### Аутентификация
-| Метод | URL | Описание | Доступ |
-|:---:|:---|:---|:---:|
-| POST | `/api/token/` | Получить JWT токен | Все |
-| POST | `/api/token/refresh/` | Обновить токен | Auth |
-
----
-
-## 🧪 Примеры запросов
-
-### Получение JWT токена
-```json
+🌐 Доступ
+🖥️ Веб-интерфейс	http://localhost:8000
+🔧 Админ-панель	http://localhost:8000/admin
+📡 API	http://localhost:8000/api/
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Laptop.png" width="30"> API Endpoints
+🐱 Коты
+Метод	URL	Доступ	Описание
+GET	/api/cats/	Все	📋 Список всех котов
+POST	/api/cats/	Auth	✨ Добавить кота
+GET	/api/cats/{id}/	Все	🔍 Просмотр кота
+PATCH	/api/cats/{id}/	Владелец	✏️ Обновить кота
+DELETE	/api/cats/{id}/	Владелец	🗑️ Удалить кота
+🎪 События
+Метод	URL	Доступ	Описание
+GET	/api/events/	Все	📋 Список событий
+POST	/api/events/	Admin	✨ Создать событие
+GET	/api/events/{id}/	Все	🔍 Просмотр события
+🏆 Достижения
+Метод	URL	Доступ	Описание
+GET	/api/achievements/	Все	📋 Список достижений
+POST	/api/achievements/	Admin	✨ Создать достижение
+🔐 Аутентификация
+Метод	URL	Описание
+POST	/api/token/	🔑 Получить JWT токен
+POST	/api/token/refresh/	🔄 Обновить токен
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Video%20Game.png" width="30"> Примеры запросов
+<details> <summary><b>📝 Получение токена</b></summary>
+json
 POST /api/token/
 {
     "username": "admin",
     "password": "admin123"
 }
-```
-
-### Создание кота
-```json
+</details><details> <summary><b>🐱 Создание кота</b></summary>
+json
 POST /api/cats/
 {
     "name": "Барсик",
@@ -146,10 +163,8 @@ POST /api/cats/
     "birth_year": 2022,
     "achievements": [1, 2]
 }
-```
-
-### Создание сезонного события
-```json
+</details><details> <summary><b>🎪 Создание события</b></summary>
+json
 POST /api/events/
 {
     "name": "Новогодний карнавал",
@@ -159,149 +174,57 @@ POST /api/events/
     "description": "Праздничное мероприятие",
     "bonus_points": 100
 }
-```
-
-### Участие кота в событии
-```json
+</details><details> <summary><b>⭐ Участие в событии</b></summary>
+json
 POST /api/participations/join_event/
 {
     "cat_id": 1,
     "event_id": 1
 }
-```
+</details>
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Magnifying%20Glass%20Tilted%20Left.png" width="30"> Фильтрация и поиск
+bash
+# Фильтрация по цвету
+GET /api/cats/?color=Ginger
 
-### Лайк кота
-```http
-POST /cats/1/like/
-```
+# Фильтрация по сезону
+GET /api/events/?season=winter
 
----
+# Поиск по имени
+GET /api/cats/?search=Барс
 
-## 🔍 Фильтрация, поиск и сортировка
+# Топ по рейтингу
+GET /api/cats/?ordering=-rating_points
 
-| Тип | Пример запроса |
-|:---|:---|
-| Фильтрация по цвету | `GET /api/cats/?color=Ginger` |
-| Фильтрация по сезону | `GET /api/events/?season=winter` |
-| Поиск по имени | `GET /api/cats/?search=Барс` |
-| Поиск событий | `GET /api/events/?search=Новогодний` |
-| Сортировка по рейтингу | `GET /api/cats/?ordering=-rating_points` |
-| Сортировка по лайкам | `GET /api/cats/?ordering=-likes_count` |
-| Сортировка по году | `GET /api/cats/?ordering=-birth_year` |
-| Комбинированный запрос | `GET /api/cats/?color=Ginger&ordering=-rating_points&search=Барс` |
+# Топ по лайкам
+GET /api/cats/?ordering=-likes_count
 
----
-
-## 🛡 Безопасность и права доступа
-
-- **JWT Bearer Token** для API запросов
-- **IsOwnerOrReadOnly** — редактирование только владельцем кота
-- **IsAuthenticatedOrReadOnly** — чтение для всех, запись для авторизованных
-
-### Бизнес-логика
-- ✅ Нельзя лайкать своего кота
-- ✅ +5 очков рейтинга за каждый лайк
-- ✅ +бонусные очки за участие в событиях
-- ✅ Автоматическое создание достижений
-- ✅ Валидация дат событий
-
----
-
-## 🐳 Docker команды
-
-```bash
-# Запуск в фоновом режиме
-docker-compose up -d
-
-# Просмотр логов
-docker-compose logs -f
-
-# Остановка контейнеров
-docker-compose down
-
-# Полная перезагрузка (с очисткой БД)
-docker-compose down -v
-docker-compose up --build
-
-# Выполнение команд в контейнере
-docker-compose exec web python manage.py createsuperuser
-docker-compose exec web bash
-```
-
----
-
-## 🧪 Тестирование
-
-### Создание тестовых достижений
-```bash
-docker-compose exec web python manage.py shell -c "
-from cats.models import Achievement
-achievements = ['Любитель рыбки', 'Мастер охоты', 'Король сна']
-for name in achievements: Achievement.objects.get_or_create(name=name)
-"
-```
-
-### Проверка API
-```
-http://localhost:8000/api/cats/
-http://localhost:8000/api/events/
-http://localhost:8000/api/achievements/
-```
-
----
-
-## 📁 Структура проекта
-
-```
-Kittygram_Byzaev_Dmitry/
-├── cats/                   # Основное приложение
-│   ├── migrations/         # Миграции БД
-│   ├── admin.py           # Админ-панель
-│   ├── forms.py           # Формы
-│   ├── models.py          # Модели данных
-│   ├── serializers.py     # API сериализаторы
-│   ├── urls.py            # Маршруты
-│   └── views.py           # Контроллеры
-├── kittygram2/            # Конфигурация проекта
-│   ├── settings.py        # Настройки Django
-│   └── urls.py            # Главные маршруты
-├── templates/             # HTML шаблоны
-│   ├── cats/              # Шаблоны котов
-│   ├── events/            # Шаблоны событий
-│   └── registration/      # Шаблоны регистрации
-├── static/                # Статические файлы
-├── media/                 # Медиа файлы
-├── docker-compose.yml     # Docker Compose
-├── Dockerfile             # Docker образ
-├── requirements.txt       # Зависимости
-├── .env.example          # Пример переменных
-├── .gitignore            # Игнорируемые файлы
-└── README.md             # Документация
-```
-
----
-
-## 👨‍💻 Разработчик
-
-**Дмитрий Byzaev**
-
-[![GitHub](https://img.shields.io/badge/GitHub-BBBounc-181717?style=flat-square&logo=github)](https://github.com/BBBounc)
-
----
-
-## 📄 Лицензия
-
-MIT License
-
----
-
+# Комбинированный запрос
+GET /api/cats/?color=Ginger&ordering=-rating_points&search=Барс
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png" width="30"> Безопасность
+🔐 JWT аутентификация	Bearer Token для API
+🛡️ IsOwnerOrReadOnly	Редактирование только владельцем
+👤 IsAuthenticatedOrReadOnly	Чтение для всех, запись для авторизованных
+💝 Лайки	Нельзя лайкать своего кота
+⭐ Рейтинг	+5 за лайк, +бонус за события
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Waving%20Hand%20Light%20Skin%20Tone.png" width="30"> Docker команды
+bash
+docker-compose up -d          # Запуск в фоне
+docker-compose logs -f        # Просмотр логов
+docker-compose down           # Остановка
+docker-compose down -v        # Полная очистка
+docker-compose exec web bash  # Вход в контейнер
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People%20with%20professions/Technologist%20Light%20Skin%20Tone.png" width="30"> Разработчик
 <div align="center">
-  
-**Проект:** Проектирование и реализация серверной части проекта Kittygram  
-**Сценарий:** Сезонные события и рейтинг  
-**Год:** 2026
+Дмитрий Byzaev
 
-🐾 *Будьте добрее к котам и они ответят вам тем же* 🐾
+https://img.shields.io/badge/GitHub-BBBounc-181717?style=for-the-badge&logo=github&logoColor=white
 
 </div>
-```
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Clipboard.png" width="30"> Лицензия
+MIT License
+
+<div align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:059669&height=120&section=footer"/>
+Проект: Kittygram | Сценарий: Сезонные события и рейтинг | Год: 2026
+
+<p> <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" width="20"> <i>Будьте добрее к котам и они ответят вам тем же</i> <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" width="20"> </p></div></body> </html> ```
