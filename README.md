@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -6,20 +7,20 @@
 <body>
 
 <div align="center">
-  
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:059669&height=200&section=header&text=Kittygram&fontSize=70&fontColor=white&animation=fadeIn" width="100%"/>
 
-  <h1>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:10b981,100:059669&height=200&section=header&text=Kittygram&fontSize=70&fontColor=white&animation=fadeIn" width="100%"/>
+
+<h1>
     <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" alt="Cat" width="50" />
     Сезонные события и рейтинг котов
     <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat.png" alt="Cat" width="50" />
   </h1>
 
-  <p>
+<p>
     <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=3000&pause=500&color=10B981&center=true&vCenter=true&width=600&lines=Добро+пожаловать+в+Kittygram!;Участвуйте+в+событиях;Повышайте+рейтинг;Получайте+достижения" alt="Typing SVG" />
   </p>
 
-  <p>
+<p>
     <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=2c3e50"/>
     <img src="https://img.shields.io/badge/Django-5.2-092E20?style=flat-square&logo=django&logoColor=white&labelColor=2c3e50"/>
     <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white&labelColor=2c3e50"/>
@@ -60,29 +61,30 @@
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Confetti%20Ball.png" width="30"> **О проекте**
+## **О проекте**
 
 **Kittygram** — это современная социальная платформа для котов и их владельцев.
 
-> ✨ **Уникальная система сезонных событий**  
-> 🏆 **Рейтинг котов с возможностью лайкать**  
-> 🎪 **Четыре сезонных мероприятия в год**  
+> ✨ **Уникальная система сезонных событий**
+> 🏆 **Рейтинг котов с возможностью лайкать**
+> 🎪 **Четыре сезонных мероприятия в год**
 > ⭐ **Бонусные очки за активность**
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Fire.png" width="30"> **Ключевые возможности**
+## **Ключевые возможности**
 
-| | | |
-|:---:|:---:|:---:|
-| 🎪 **Сезонные события**<br>Зимние, весенние, летние<br>и осенние мероприятия | ⭐ **Система рейтинга**<br>Очки за события и лайки<br>Топ котов на главной | 🏆 **Достижения**<br>15+ уникальных наград<br>Автоматическое создание |
-| ❤️ **Лайки**<br>+5 очков за лайк<br>Нельзя лайкать себя | 📡 **REST API**<br>Полный CRUD<br>JWT аутентификация | 🐳 **Docker**<br>Готов к развёртыванию<br>PostgreSQL в контейнере |
+|                                                                                                                                                |                                                                                                                                            |                                                                                                                                    |
+| :---------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: |
+| 🎪**Сезонные события**`<br>`Зимние, весенние, летние`<br>`и осенние мероприятия | ⭐**Система рейтинга**`<br>`Очки за события и лайки`<br>`Топ котов на главной | 🏆**Достижения**`<br>`15+ уникальных наград`<br>`Автоматическое создание |
+|                     ❤️**Лайки**`<br>`+5 очков за лайк`<br>`Нельзя лайкать себя                     |                           📡**REST API**`<br>`Полный CRUD`<br>`JWT аутентификация                           |            🐳**Docker**`<br>`Готов к развёртыванию`<br>`PostgreSQL в контейнере            |
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Backhand%20Index%20Pointing%20Right%20Dark%20Skin%20Tone.png" width="30"> **Быстрый старт**
+## **Быстрый старт**
 
 ### Клонирование
+
 ```bash
 git clone https://github.com/BBBounc/Kittygram_Byzaev_Dmitry.git
 cd Kittygram_Byzaev_Dmitry
@@ -219,3 +221,4 @@ text
 - Аккуратные таблицы
 - Код в одну строку без караоке
 - Простые и понятные инструкции
+```
